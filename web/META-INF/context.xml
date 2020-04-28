@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context path="/J3.L.P0007_HotelBooking">
+    <Resource name="DBConn" auth="Container" type="javax.sql.DataSource" 
+            username="sa" password="gooner" driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
+              url="jdbc:sqlserver://localhost:1433;databaseName=HotelBooking">
+    </Resource>
+</Context>
