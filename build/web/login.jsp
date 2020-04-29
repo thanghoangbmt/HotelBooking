@@ -16,8 +16,8 @@
         <font color="red"> ${LOGINERROR} </font>
 
         <form action="MainController" method="POST">
-            <input type="email" name="txtEmail" required="true"/> <br/>
-            <input type="password" name="txtPassword" required="true"/> <br/>
+            Email: <input type="email" name="txtEmail" required="true"/> <br/>
+            Password: <input type="password" name="txtPassword" required="true"/> <br/>
             <input type="submit" name="action" value="Login"/> <br/>
         </form>
         <a href="register.jsp">Register here</a>

@@ -10,19 +10,18 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import tintt.daos.AccountDAO;
+import tintt.dtos.AccountDTO;
+import tintt.dtos.AccountError;
 
 /**
  *
  * @author Admin
  */
-public class MainController extends HttpServlet {
+public class RegisterController extends HttpServlet {
 
-    private final String LOGIN = "LoginController";
-    private final String LOGOUT = "LogoutController";
-    private final String REGISTER = "RegisterController";
-    private final String SEARCH = "PreSearchController";
-
-    private final String ERROR = "index.jsp";
+    private final String SUCCESS = "login.jsp";
+    private final String ERROR = "register.jsp";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,20 +37,43 @@ public class MainController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-            String action = request.getParameter("action");
-            if (action.equals("Login")) {
-                url = LOGIN;
-            } else if (action.equals("Logout")) {
-                url = LOGOUT;
-            } else if (action.equals("Register")) {
-                url = REGISTER;
-            } else if (action.equals("Search")) {
-                url = SEARCH;
+            String email = request.getParameter("txtEmail").trim();
+            String password = request.getParameter("txtPassword");
+            String fullname = request.getParameter("txtFullname");
+            String phone = request.getParameter("txtPhone");
+            String address = request.getParameter("txtAddress");
+            String role = "User";
+            String status = "Active";
+
+            AccountDAO dao = new AccountDAO();
+            AccountError error = null;
+            boolean valid = true;
+            if (dao.checkExistEmail(email)) {
+                if (error == null) {
+                    error = new AccountError();
+                }
+                error.setEmailError("Email has been registered!");
+                valid = false;
+            }
+
+            if (valid) {
+                AccountDTO dto = new AccountDTO(email, password, fullname, phone, address, role, status);
+                boolean result = dao.registerAccount(dto);
+                if (result) {
+                    url = SUCCESS;
+                }
+            } else {
+                url = ERROR;
+                request.setAttribute("REGISTERERROR", error);
             }
         } catch (Exception e) {
-            log("Error at MainController: " + e.toString());
+            log("Error at RegisterController: " + e.toString());
         } finally {
-            request.getRequestDispatcher(url).forward(request, response);
+            if (url.equals(SUCCESS)) {
+                response.sendRedirect(url);
+            } else if (url.equals(ERROR)) {
+                request.getRequestDispatcher(url).forward(request, response);
+            }
         }
     }
 

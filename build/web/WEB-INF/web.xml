@@ -16,6 +16,18 @@
         <servlet-name>LogoutController</servlet-name>
         <servlet-class>tintt.controllers.LogoutController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>RegisterController</servlet-name>
+        <servlet-class>tintt.controllers.RegisterController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchController</servlet-name>
+        <servlet-class>tintt.controllers.SearchController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PreSearchController</servlet-name>
+        <servlet-class>tintt.controllers.PreSearchController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>MainController</servlet-name>
         <url-pattern>/MainController</url-pattern>
@@ -32,6 +44,18 @@
         <servlet-name>LogoutController</servlet-name>
         <url-pattern>/LogoutController</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RegisterController</servlet-name>
+        <url-pattern>/RegisterController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchController</servlet-name>
+        <url-pattern>/SearchController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PreSearchController</servlet-name>
+        <url-pattern>/PreSearchController</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
@@ -44,7 +68,6 @@
         <res-auth>Container</res-auth>
         <res-sharing-scope>Shareable</res-sharing-scope>
     </resource-ref>
-    
     <welcome-file-list>
         <welcome-file>IndexController</welcome-file>
     </welcome-file-list>

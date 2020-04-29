@@ -6,23 +6,23 @@
 package tintt.controllers;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import tintt.daos.RoomDAO;
+import tintt.dtos.RoomDTO;
 
 /**
  *
  * @author Admin
  */
-public class MainController extends HttpServlet {
+public class SearchController extends HttpServlet {
 
-    private final String LOGIN = "LoginController";
-    private final String LOGOUT = "LogoutController";
-    private final String REGISTER = "RegisterController";
-    private final String SEARCH = "PreSearchController";
-
-    private final String ERROR = "index.jsp";
+    private final String SUCCESS = "index.jsp";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,20 +36,18 @@ public class MainController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = ERROR;
+        String url = SUCCESS;
         try {
-            String action = request.getParameter("action");
-            if (action.equals("Login")) {
-                url = LOGIN;
-            } else if (action.equals("Logout")) {
-                url = LOGOUT;
-            } else if (action.equals("Register")) {
-                url = REGISTER;
-            } else if (action.equals("Search")) {
-                url = SEARCH;
-            }
+            HttpSession session = request.getSession();
+            String hotelName = (String) session.getAttribute("HotelName");
+            String area = (String) session.getAttribute("Area");
+            String sCheckInDate = (String) session.getAttribute("CheckInDate");
+            String sCheckOutDate = (String) session.getAttribute("CheckOutDate");
+            
+            RoomDAO roomDAO = new RoomDAO();
+            HashMap<String, ArrayList<RoomDTO>> listRoom = roomDAO.getListRoomAvailable(hotelName, area, sCheckInDate, sCheckOutDate);
         } catch (Exception e) {
-            log("Error at MainController: " + e.toString());
+            log("Error at SearchController: " + e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }

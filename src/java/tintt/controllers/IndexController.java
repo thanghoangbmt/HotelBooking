@@ -6,11 +6,16 @@
 package tintt.controllers;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import tintt.daos.AreaDAO;
+import tintt.dtos.AreaDTO;
 
 /**
  *
@@ -18,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class IndexController extends HttpServlet {
 
-    private final String SUCCESS = "index.jsp";
+    private final String SUCCESS = "SearchController";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,6 +39,24 @@ public class IndexController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String url = SUCCESS;
         try {
+            String hotelName = "";
+            String area = "All";
+
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+            Date date = new Date();
+            String checkInDate = formatter.format(date);
+            String checkOutDate = "9999-12-31";
+
+            HttpSession session = request.getSession();
+            session.setAttribute("HotelName", hotelName);
+            session.setAttribute("Area", area);
+            session.setAttribute("CheckInDate", checkInDate);
+            session.setAttribute("CheckOutDate", checkOutDate);
+
+            AreaDAO areaDAO = new AreaDAO();
+            List<AreaDTO> listArea = areaDAO.getListArea();
+
+            request.setAttribute("LIST_AREA", listArea);
 
         } catch (Exception e) {
             log("Error at IndexController: " + e.toString());

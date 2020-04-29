@@ -10,19 +10,15 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Admin
  */
-public class MainController extends HttpServlet {
+public class PreSearchController extends HttpServlet {
 
-    private final String LOGIN = "LoginController";
-    private final String LOGOUT = "LogoutController";
-    private final String REGISTER = "RegisterController";
-    private final String SEARCH = "PreSearchController";
-
-    private final String ERROR = "index.jsp";
+    private final String SUCCESS = "SearchController";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,20 +32,21 @@ public class MainController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = ERROR;
+        String url = SUCCESS;
         try {
-            String action = request.getParameter("action");
-            if (action.equals("Login")) {
-                url = LOGIN;
-            } else if (action.equals("Logout")) {
-                url = LOGOUT;
-            } else if (action.equals("Register")) {
-                url = REGISTER;
-            } else if (action.equals("Search")) {
-                url = SEARCH;
-            }
+            String hotelName = request.getParameter("txtHotel");
+            String area = request.getParameter("txtArea");
+            String checkInDate = request.getParameter("txtCheckIn");
+            String checkOutDate = request.getParameter("txtCheckOut");
+            
+            HttpSession session = request.getSession();
+            session.setAttribute("HotelName", hotelName);
+            session.setAttribute("Area", area);
+            session.setAttribute("CheckInDate", checkInDate);
+            session.setAttribute("CheckOutDate", checkOutDate);
+
         } catch (Exception e) {
-            log("Error at MainController: " + e.toString());
+            log("Error at PreSearchController: " + e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }
