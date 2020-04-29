@@ -8,6 +8,7 @@ package tintt.controllers;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -43,9 +44,13 @@ public class SearchController extends HttpServlet {
             String area = (String) session.getAttribute("Area");
             String sCheckInDate = (String) session.getAttribute("CheckInDate");
             String sCheckOutDate = (String) session.getAttribute("CheckOutDate");
+            int amount = (int) session.getAttribute("Amount");
             
             RoomDAO roomDAO = new RoomDAO();
-            HashMap<String, ArrayList<RoomDTO>> listRoom = roomDAO.getListRoomAvailable(hotelName, area, sCheckInDate, sCheckOutDate);
+            List<RoomDTO> listRoom = roomDAO.getListRoomAvailable(hotelName, area, amount, sCheckInDate, sCheckOutDate);
+            listRoom = roomDAO.getListRoomAvailable2(hotelName, area, amount, sCheckInDate, sCheckOutDate, listRoom);
+            request.setAttribute("LIST_ROOM", listRoom);
+            
         } catch (Exception e) {
             log("Error at SearchController: " + e.toString());
         } finally {

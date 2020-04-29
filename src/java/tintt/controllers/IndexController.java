@@ -46,12 +46,14 @@ public class IndexController extends HttpServlet {
             Date date = new Date();
             String checkInDate = formatter.format(date);
             String checkOutDate = "9999-12-31";
+            int amount = 1;
 
             HttpSession session = request.getSession();
             session.setAttribute("HotelName", hotelName);
             session.setAttribute("Area", area);
             session.setAttribute("CheckInDate", checkInDate);
             session.setAttribute("CheckOutDate", checkOutDate);
+            session.setAttribute("Amount", amount);
 
             AreaDAO areaDAO = new AreaDAO();
             List<AreaDTO> listArea = areaDAO.getListArea();

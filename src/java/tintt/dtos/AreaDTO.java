@@ -17,6 +17,10 @@ public class AreaDTO implements Serializable{
 
     public AreaDTO() {
     }
+
+    public AreaDTO(String location) {
+        this.location = location;
+    }
     
     public AreaDTO(int id, String location) {
         this.id = id;

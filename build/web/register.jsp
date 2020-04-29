@@ -19,37 +19,13 @@
             Password: <input type="password" name="txtPassword" id="txtPassword" required="true"/> <br/>
             Confirm Password: <input type="password" name="txtConfirmPassword" id="txtConfirmPassword" required="true"/> <br/>
             Full Name: <input type="text" name="txtFullname" required="true"/> <br/>
-            Phone: <input type="text" name="txtPhone" id="txtPhone" required="true"/> <br/>
+            Phone: <input type="text" name="txtPhone" id="phone" required="true"/> <br/>
             Address: <input type="text" name="txtAddress" required="true"/> <br/>
 
             <input type="submit" name="action" value="Register" onclick="return Validate()"/>
         </form>
 
-        <script type="text/javascript">
-
-
-            function Validate() {
-                var password = document.getElementById("txtPassword").value;
-                var confirmPassword = document.getElementById("txtConfirmPassword").value;
-                if (password !== confirmPassword) {
-                    alert("Passwords do not match!");
-                    return false;
-                }
-
-                return true;
-            }
-            
-            function checkPhone() {
-                var phone = document.getElementById("txtPhone").value;
-                var phoneNum = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
-                if (phone.value.match(phoneNum)) {
-                    return true;
-                } else {
-                    alert("Phone number is invalid!");
-                    return false;
-                }
-            }
-        </script>
+        <script src="script01.js"></script>
 
     </body>
 </html>

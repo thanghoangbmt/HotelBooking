@@ -41,10 +41,40 @@
                     <option value="${listArea.location}">${listArea.location}</option>
                 </c:forEach>
             </select>
+            Amount: <input type="number" name="txtAmount" min="1" value="1"/>
             Check In: <input type="date" name="txtCheckIn" required="true"/>
             Check Out: <input type="date" name="txtCheckOut" required="true"/>
             <input type="submit" name="action" value="Search"/>
         </form>
+
+        <%--<c:if test="${requestScope.LIST_ROOM != null}">--%>
+        <%--<c:if test="${not empty requestScope.LIST_ROOM}">--%>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Hotel Name</th>
+                    <th>Area</th>
+                    <th>Type</th>
+                    <th>Available Amount</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                <c:forEach var="LIST" items="${requestScope.LIST_ROOM}">
+                    <tr>
+                        <td>${LIST.hotel.name}</td>
+                        <td>${LIST.hotel.area.location}</td>
+                        <td>${LIST.type}</td>
+                        <td>${LIST.amount}</td>
+                        <td>${LIST.price}</td>
+                    </tr>
+                </c:forEach>
+
+            </tbody>
+        </table>
+
+        <%--</c:if>--%>
+        <%--</c:if>--%>
 
     </body>
 </html>
